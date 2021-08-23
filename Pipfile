@@ -4,8 +4,13 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+<<<<<<< HEAD
+pymysql = "*"
+flask = "*"
+=======
 flask = "*"
 pymysql = "*"
+>>>>>>> e631de3c70a097e1cd8e51e3a3dae83bb3461f88
 flask-bcrypt = "*"
 
 [dev-packages]
