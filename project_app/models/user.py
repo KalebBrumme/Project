@@ -12,6 +12,7 @@ class User:
         self.first_name= data["first_name"]
         self.last_name= data["last_name"]
         self.email= data["email"]
+        self.birthday= data["birthday"]
         self.password= data["password"]
         self.created_at= data["created_at"]
         self.updated_at= data["updated_at"]
@@ -58,5 +59,5 @@ class User:
 
     @classmethod
     def save(cls, data):
-        query= "INSERT INTO users (first_name, last_name, email, password) VALUES (%(first_name)s, %(last_name)s, %(email)s, %(password)s)"
+        query= "INSERT INTO users (first_name, last_name, email, birthday, password) VALUES (%(first_name)s, %(last_name)s, %(email)s, %(birthday)s, %(password)s)"
         return connectToMySQL("project").query_db(query, data)

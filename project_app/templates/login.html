@@ -5,60 +5,78 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 </head>
 <body>
-    <div class="col">
-        <h1>Login: </h1>
-        <form action="/login_user" method="POST">
-            {% for message in get_flashed_messages(category_filter=["login"]) %}
-            <div class="alert alert-danger" role="alert">
-                <p>{{message}}</p>
+    <nav>
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo">Server name</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="#">Contact us</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col s6">
+                <h1>Login: </h1>
+                <form action="/login_user" method="POST">
+                    {% for message in get_flashed_messages(category_filter=["login"]) %}
+                    <div class="alert alert-danger" role="alert">
+                        <p>{{message}}</p>
+                    </div>
+                    {% endfor %}
+                    <div class="input-field">
+                        <label for="email">Email: </label>
+                        <input type="text" name="email" class="validate">
+                    </div>
+                    <div class="input-field">
+                        <label for="password">Password: </label>
+                        <input type="password" name="password" class="validate">
+                    </div>
+                    <br>
+                    <input type="submit" value="Login">
+                </form>
             </div>
-            {% endfor %}
-            <label for="email">Email: </label>
-            <input type="text" name="email">
-            <label for="password">Password: </label>
-            <input type="password" name="password">
-            <br>
-            <input type="submit" value="Login">
-        </form>
+            <div class="col s6">
+                <h1>Register: </h1>
+                <form action="/register_user" method="POST">
+                    <label for="first_name">First Name: </label>
+                    <input type="text" name="first_name">
+                    {% for error in get_flashed_messages(category_filter=["first_name"]) %}
+                        <p class="alert alert-danger">{{ error }}</p>
+                    {% endfor %}
+                    <label for="last_name">Last Name: </label>
+                    <input type="text" name="last_name">
+                    {% for error in get_flashed_messages(category_filter=["last_name"]) %}
+                        <p class="alert alert-danger">{{ error }}</p>
+                    {% endfor %}
+                    <label for="email">Email: </label>
+                    <input type="text" name="email">
+                    {% for error in get_flashed_messages(category_filter=["email"]) %}
+                        <p class="alert alert-danger">{{ error }}</p>
+                    {% endfor %}
+                    <label for="birthday">Birthday: </label>
+                    <input type="date" name="birthday">
+                    {% for error in get_flashed_messages(category_filter=["birthday"]) %}
+                        <p class="alert alert-danger">{{ error }}</p>
+                    {% endfor %}
+                    <label for="password">Password: </label>
+                    <input type="password" name="password">
+                    {% for error in get_flashed_messages(category_filter=["password"]) %}
+                        <p class="alert alert-danger">{{ error }}</p>
+                    {% endfor %}
+                    <label for="password_confirmation">Password Confirmation: </label>
+                    <input type="password" name="password_confirmation">
+                    {% for error in get_flashed_messages(category_filter=["password_confirmation"]) %}
+                        <p class="alert alert-danger">{{ error }}</p>
+                    {% endfor %}
+                    <br>
+                    <input type="submit" value="Register">
+                </form>
+            </div>
+        </div>
     </div>
-    <div class="col">
-        <h1>Register: </h1>
-        <form action="/register_user" method="POST">
-            <label for="first_name">First Name: </label>
-            <input type="text" name="first_name">
-            {% for error in get_flashed_messages(category_filter=["first_name"]) %}
-                <p class="alert alert-danger">{{ error }}</p>
-            {% endfor %}
-            <label for="last_name">Last Name: </label>
-            <input type="text" name="last_name">
-            {% for error in get_flashed_messages(category_filter=["last_name"]) %}
-                <p class="alert alert-danger">{{ error }}</p>
-            {% endfor %}
-            <label for="email">Email: </label>
-            <input type="text" name="email">
-            {% for error in get_flashed_messages(category_filter=["email"]) %}
-                <p class="alert alert-danger">{{ error }}</p>
-            {% endfor %}
-            <label for="birthday">Birthday: </label>
-            <input type="date" name="birthday">
-            {% for error in get_flashed_messages(category_filter=["birthday"]) %}
-                <p class="alert alert-danger">{{ error }}</p>
-            {% endfor %}
-            <label for="password">Password: </label>
-            <input type="password" name="password">
-            {% for error in get_flashed_messages(category_filter=["password"]) %}
-                <p class="alert alert-danger">{{ error }}</p>
-            {% endfor %}
-            <label for="password_confirmation">Password Confirmation: </label>
-            <input type="password" name="password_confirmation">
-            {% for error in get_flashed_messages(category_filter=["password_confirmation"]) %}
-                <p class="alert alert-danger">{{ error }}</p>
-            {% endfor %}
-            <br>
-            <input type="submit" value="Register">
-        </form>
-    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 </html>
