@@ -1,4 +1,4 @@
-from project_app.config.pymysqlconnection import connectToMySQL
+from project_app.config.pymysqlconnections import connectToMySQL
 from flask import flash
 
 import re  
