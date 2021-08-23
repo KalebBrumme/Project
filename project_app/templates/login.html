@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam 2nd Try</title>
+</head>
+<body>
+    <div class="col">
+        <h1>Login: </h1>
+        <form action="/login_user" method="POST">
+            {% for message in get_flashed_messages(category_filter=["login"]) %}
+            <div class="alert alert-danger" role="alert">
+                <p>{{message}}</p>
+            </div>
+            {% endfor %}
+            <label for="email">Email: </label>
+            <input type="text" name="email">
+            <label for="password">Password: </label>
+            <input type="password" name="password">
+            <br>
+            <input type="submit" value="Login">
+        </form>
+    </div>
+    <div class="col">
+        <h1>Register: </h1>
+        <form action="/register_user" method="POST">
+            <label for="first_name">First Name: </label>
+            <input type="text" name="first_name">
+            {% for error in get_flashed_messages(category_filter=["first_name"]) %}
+                <p class="alert alert-danger">{{ error }}</p>
+            {% endfor %}
+            <label for="last_name">Last Name: </label>
+            <input type="text" name="last_name">
+            {% for error in get_flashed_messages(category_filter=["last_name"]) %}
+                <p class="alert alert-danger">{{ error }}</p>
+            {% endfor %}
+            <label for="email">Email: </label>
+            <input type="text" name="email">
+            {% for error in get_flashed_messages(category_filter=["email"]) %}
+                <p class="alert alert-danger">{{ error }}</p>
+            {% endfor %}
+            <label for="birthday">Birthday: </label>
+            <input type="date" name="birthday">
+            {% for error in get_flashed_messages(category_filter=["birthday"]) %}
+                <p class="alert alert-danger">{{ error }}</p>
+            {% endfor %}
+            <label for="password">Password: </label>
+            <input type="password" name="password">
+            {% for error in get_flashed_messages(category_filter=["password"]) %}
+                <p class="alert alert-danger">{{ error }}</p>
+            {% endfor %}
+            <label for="password_confirmation">Password Confirmation: </label>
+            <input type="password" name="password_confirmation">
+            {% for error in get_flashed_messages(category_filter=["password_confirmation"]) %}
+                <p class="alert alert-danger">{{ error }}</p>
+            {% endfor %}
+            <br>
+            <input type="submit" value="Register">
+        </form>
+    </div>
+</body>
+</html>
