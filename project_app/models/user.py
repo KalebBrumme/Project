@@ -1,46 +1,62 @@
+from flask_app.config.mysqlconnection import connectToMySQL
 from flask import flash
-from project_app import app
-from flask import render_template, redirect, request, session
-from project_app.models.user import User
-from flask_bcrypt import Bcrypt     
-bcrypt = Bcrypt(app)
 
-@app.route("/")
-def login_page():
-    return render_template("login.html")
+import re  
 
-@app.route("/register_user", methods=["POST"])
-def register_user():
-    if not User.validate_user(request.form):
-        return redirect("/")
-    pw_hash = bcrypt.generate_password_hash(request.form["password"])
-    data = {
-        "first_name" : request.form["first_name"],
-        "last_name" : request.form["last_name"],
-        "email" : request.form["email"],
-        "birthday" : request.form["birthday"],
-        "password" : pw_hash
-    }
-    user_id = User.save(data)
-    session["account_logged_in"] = user_id
-    return redirect("/dashboard")
+EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$') 
 
-@app.route("/login_user", methods=["POST"])
-def login():
-    data = {
-        "email" : request.form["email"]
-    }
-    user_data= User.get_email(data)
-    if not user_data:
-        flash("Wrong email or password", "login")
-        return redirect('/')
-    if not bcrypt.check_password_hash(user_data.password, request.form["password"]):
-        flash("Wrong password", "login")
-        return redirect("/")
-    session["account_logged_in"] = user_data.id
-    return redirect("/dashboard")
 
-@app.route("/log_out")
-def log_out():
-    session.clear()
-    return redirect("/")
+class User:
+    def __init__(self, data):
+        self.id= data["id"]
+        self.first_name= data["first_name"]
+        self.last_name= data["last_name"]
+        self.email= data["email"]
+        self.password= data["password"]
+        self.created_at= data["created_at"]
+        self.updated_at= data["updated_at"]
+    
+    @staticmethod
+    def validate_user(user):
+        is_valid = True
+        if len(user["first_name"]) < 2:
+            flash("First name must be at least two characters", "first_name")
+            is_valid = False
+        if len(user["last_name"]) < 2:
+            flash("Last name must be at least two characters", "last_name")
+            is_valid = False
+        if User.get_email({"email": user["email"]}):
+            flash("Email already exists!", "email")
+            is_valid = False
+        if not EMAIL_REGEX.match(user["email"]): 
+            flash("Invalid email address", "email")
+            is_valid = False
+        if len(user["birthday"]) == 0:
+            flash("Birthday must be inputed", "birthday")
+            is_valid = False
+        if len(user["password"]) < 8:
+            flash("Password must be at least eight characters", "password")
+            is_valid = False
+        if user["password"] != user["password_confirmation"]:
+            flash("Passwords do not match", "password_confirmation")
+            is_valid = False
+        return is_valid
+
+    @classmethod
+    def get_email(cls, data):
+        query= "SELECT * FROM users WHERE email = %(email)s"
+        results= connectToMySQL("project").query_db(query, data)
+        if len(results) < 1:
+            return False
+        return cls(results[0])
+
+    @classmethod
+    def get_one(cls, data):
+        query = "SELECT * FROM users WHERE id = %(id)s"
+        results= connectToMySQL("project").query_db(query, data)
+        return cls(results[0])
+
+    @classmethod
+    def save(cls, data):
+        query= "INSERT INTO users (first_name, last_name, email, password) VALUES (%(first_name)s, %(last_name)s, %(email)s, %(password)s)"
+        return connectToMySQL("project").query_db(query, data)
