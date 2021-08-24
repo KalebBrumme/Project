@@ -61,3 +61,12 @@ class User:
     def save(cls, data):
         query= "INSERT INTO users (first_name, last_name, email, birthday, password) VALUES (%(first_name)s, %(last_name)s, %(email)s, %(birthday)s, %(password)s)"
         return connectToMySQL("project").query_db(query, data)
+
+    @classmethod
+    def get_all(cls):
+        query= "SELECT * FROM users;"
+        results = connectToMySQL("project").query_db(query)
+        all_users= []
+        for user in results:
+            all_users.append(cls(user))
+        return all_users
