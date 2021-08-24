@@ -13,5 +13,6 @@ def dashboard():
         "id" : session["account_logged_in"]
     }
     account_logged_in = User.get_one(data)
-    return render_template("dashboard.html", user= account_logged_in)
+    all_users= User.get_all()
+    return render_template("dashboard.html", user= account_logged_in, all_users= all_users)
     
