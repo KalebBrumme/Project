@@ -20,18 +20,6 @@ def dashboard():
     return render_template("dashboard.html", user= account_logged_in, all_users= all_users, all_channels= all_channels)
 
 
-@app.route("/dashboard")
-def dashboard():
-    if "account_logged_in" not in session:
-        return redirect("/log_out")
-    data = {
-        "id" : session["account_logged_in"]
-    }
-    account_logged_in = User.get_one(data)
-    all_users= User.get_all()
-    all_channels= Channel.get_all_channels()
-    return render_template("dashboard.html", user= account_logged_in, all_users= all_users, all_channels = all_channels)
-
 
 @app.route('/upload')
 def upload():
