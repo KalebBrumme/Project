@@ -45,7 +45,7 @@ class User:
 
     @classmethod
     def get_email(cls, data):
-        query= "SELECT * FROM users WHERE email = %(email)s"
+        query= "SELECT * FROM users WHERE email = %(email)s;"
         results= connectToMySQL("project").query_db(query, data)
         if len(results) < 1:
             return False
@@ -53,13 +53,13 @@ class User:
 
     @classmethod
     def get_one(cls, data):
-        query = "SELECT * FROM users WHERE id = %(id)s"
+        query = "SELECT * FROM users WHERE id = %(id)s;"
         results= connectToMySQL("project").query_db(query, data)
         return cls(results[0])
 
     @classmethod
     def save(cls, data):
-        query= "INSERT INTO users (first_name, last_name, email, birthday, password) VALUES (%(first_name)s, %(last_name)s, %(email)s, %(birthday)s, %(password)s)"
+        query= "INSERT INTO users (first_name, last_name, email, birthday, password) VALUES (%(first_name)s, %(last_name)s, %(email)s, %(birthday)s, %(password)s);"
         return connectToMySQL("project").query_db(query, data)
 
     @classmethod

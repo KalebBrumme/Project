@@ -3,7 +3,7 @@ from uuid import uuid4
 from project_app import app
 from flask import render_template, request, redirect, session, flash, url_for, send_from_directory
 from werkzeug.utils import secure_filename
-# from project_app.models.post import Post
+from project_app.models.post import Post
 from project_app.models.user import User
 from project_app.models.channel import Channel
 
@@ -27,8 +27,6 @@ def to_dashboard():
 @app.route('/upload')
 def upload():
     return render_template('upload.html')
-
-
 
 
 
@@ -61,3 +59,10 @@ def upload_file():
 def download_file(name):
     return send_from_directory(app.config['UPLOAD_PATH'], name)
 
+@app.route('/profile_page')
+def user_profile():
+    user_data = {
+        "id": session['account_logged_in']
+    }
+    all_user_posts = Post.get_all_users_posts(user_data)
+    return render_template('profile_page.html', all_user_posts = all_user_posts)
