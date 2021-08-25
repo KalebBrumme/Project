@@ -59,9 +59,16 @@
                     <p>Description of hobby/hobbies</p>
                 </div>
                 <div class="col-8">
+                    {% for post in all_user_posts %}
                     <div class="container-fluid">
-                        <p>Posts</p>
+                        <div class="row">
+                            <div class="col">
+                                <p>{{ post.date }}</p>
+                                <p>{{ post.description }}</p>
+                            </div>
+                        </div>
                     </div>
+                    {% endfor %}
                 </div>
             </div>
     </div>
