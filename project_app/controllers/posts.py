@@ -19,6 +19,9 @@ def dashboard():
     all_channels= Channel.get_all_channels()
     return render_template("dashboard.html", user= account_logged_in, all_users= all_users, all_channels= all_channels)
 
+@app.route("/to_dashboard")
+def to_dashboard():
+    return redirect("/dashboard")
 
 
 @app.route('/upload')

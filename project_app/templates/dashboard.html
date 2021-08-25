@@ -57,6 +57,7 @@
                         <input type="submit" value="+" class="btn btn-primary btn-sm ms-1">
                     </form>
                     <div class="d-flex flex-column">
+                        <a href="/to_dashboard">Dashboard</a>
                         {% for channel in all_channels %}
                             <label><a href="/go_to_channel/{{ channel.id }}">{{ channel.name }}</a></label>
                         {% endfor %}
