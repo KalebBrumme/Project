@@ -59,16 +59,16 @@
                     <p>Description of hobby/hobbies</p>
                 </div>
                 <div class="col-8">
+                    {% for post in all_user_posts %}
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col">
-                                <img style="float:left" src="/project_app/kitty_img.jpg" class="img-fluid" alt="kitty_img">
-                                <p>Posts</p>
-                                <p>date</p>
-                                <p>text inside of the post</p>
+                                <p>{{ post.date }}</p>
+                                <p>{{ post.description }}</p>
                             </div>
                         </div>
                     </div>
+                    {% endfor %}
                 </div>
             </div>
     </div>
