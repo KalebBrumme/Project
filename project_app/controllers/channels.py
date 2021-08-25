@@ -28,3 +28,18 @@ def add_channel():
     }
     Channel.create_channel(data)
     return redirect("/dashboard")
+
+@app.route("/go_to_channel/<id>")
+def go_to_channel(id):
+    data= {
+        "id" : id
+    }
+    main_data= {
+        "id" : session["account_logged_in"]
+    }
+    one_channel= Channel.get_one(data)
+    account_logged_in = User.get_one(main_data)
+    all_users= User.get_all()
+    all_channels= Channel.get_all_channels()
+    return render_template("channel.html", user= account_logged_in, all_users= all_users, one_channel= one_channel, all_channels= all_channels)
+
