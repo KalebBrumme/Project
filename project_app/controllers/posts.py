@@ -7,6 +7,10 @@ from werkzeug.utils import secure_filename
 from project_app.models.user import User
 from project_app.models.channel import Channel
 
+def get_file():
+    return send_from_directory()
+
+
 @app.route("/dashboard")
 def dashboard():
     if "account_logged_in" not in session:
