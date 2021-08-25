@@ -12,10 +12,13 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <form action="/uploads" method="GET, POST">
-                    <input type='file' id="myFile" name="filename">
-                    <input type="submit">
+                <form action="/uploads" enctype="multipart/form-data" method="POST">
+                    <input accept="image/*" type='file' id="myFile" name="file">
+                    <input type="submit" value="Submit">
                 </form>
+                {% for error in get_flashed_messages() %}
+                    <p>{{ error }}</p>
+                {% endfor %}
             </div>
         </div>
     </div>
