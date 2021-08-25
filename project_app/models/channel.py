@@ -1,6 +1,6 @@
 from project_app.config.pymysqlconnections import connectToMySQL
 from flask import flash
-from project_app.models.user import User
+from project_app.models.post import Post
 
 class Channel:
     def __init__(self, data):
@@ -9,6 +9,7 @@ class Channel:
         self.user_id = data["user_id"]
         self.created_at = data["created_at"]
         self.updated_at = data["updated_at"]
+        self.posts= []
     
     @staticmethod
     def validate_channel(channel):
@@ -35,3 +36,23 @@ class Channel:
         for channel in results:
             all_channels.append(cls(channel))
         return all_channels
+
+    @classmethod
+    def get_one(cls, data):
+        query= "SELECT * FROM channels LEFT JOIN posts ON channels.id = posts.channel_id WHERE channels.id= %(id)s;"
+        results= connectToMySQL("project").query_db(query, data)
+        channel = cls(results[0])
+        for row in results:
+            data= {
+                "id" : row["posts.id"],
+                "name" : row["name"],
+                "like_count" : row["like_count"],
+                "description" : row["description"],
+                "user_id" : row["posts.user_id"],
+                "channel_id" : row["channel_id"],
+                "created_at" : row["posts.created_at"],
+                "updated_at" : row["posts.updated_at"]
+            }
+            channel.posts.append(Post(data))
+        return channel
+

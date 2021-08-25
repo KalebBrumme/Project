@@ -70,3 +70,5 @@ class User:
         for user in results:
             all_users.append(cls(user))
         return all_users
+    
+    
