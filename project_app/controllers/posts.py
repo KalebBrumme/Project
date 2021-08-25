@@ -1,5 +1,5 @@
 from project_app import app
-from flask import render_template, request, redirect, session
+from flask import render_template, request, redirect, session, jsonify
 # from project_app.models.post import Post
 from project_app.models.user import User
 from flask_bcrypt import Bcrypt
@@ -15,4 +15,8 @@ def dashboard():
     account_logged_in = User.get_one(data)
     all_users= User.get_all()
     return render_template("dashboard.html", user= account_logged_in, all_users= all_users)
-    
+
+
+@app.route("/upload")
+def upload_image():
+    return render_template('/dashboard')
