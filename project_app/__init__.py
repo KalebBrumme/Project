@@ -5,3 +5,4 @@ UPLOAD_FOLDER = 'upload_folder/images'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 app.config['UPLOAD_PATH'] = UPLOAD_FOLDER
 app.config['UPLOAD_EXTENSIONS'] = ALLOWED_EXTENSIONS
+app.config['MAX_CONTENT_LENGTH'] = 2048 * 2048

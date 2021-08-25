@@ -33,7 +33,8 @@ def upload():
     return render_template('upload.html')
 
 
-
+def image_to_user():
+    pass
 
 
 def allowed_file(filename):
@@ -44,6 +45,8 @@ def allowed_file(filename):
 
 @app.route("/uploads", methods = ['POST'])
 def upload_file():
+    if "account_logged_in" not in session:
+        return redirect("/log_out")
     if request.method == 'POST':
         print(request.files)
         if 'file' not in request.files:

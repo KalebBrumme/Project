@@ -66,9 +66,11 @@
                 <div class="col-8 bg-secondary bg-gradient d-flex justify-content-center">
                     <div class="text-center">
                         <div class="card" style="width: auto;">
-                            <img src="{{ user_image }}" name="file" class="card-img-top" alt="test image">
+                            {% for post in posts %}
+                                
+                            {% endfor %}
                             <div class="card-body">
-                                <input class="width: auto;" type="text">
+                                <p>This will be the post descrpiton.</p>
                             </div>
                         </div>
                     </div>
