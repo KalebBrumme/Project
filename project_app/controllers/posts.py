@@ -14,4 +14,10 @@ def dashboard():
     }
     account_logged_in = User.get_one(data)
     return render_template("dashboard.html", user= account_logged_in)
-    
+
+@app.route("/profile_page")
+def profile():
+    user_data ={
+        "id": session['logged_user']
+    }
+    Post.get_all_user_posts(data)
