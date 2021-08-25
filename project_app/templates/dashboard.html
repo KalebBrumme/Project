@@ -31,6 +31,8 @@
                     <li><a class="dropdown-item" href="#">Another action</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="#">Contact Us</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="/log_out">Log Out</a></li>
                 </ul>
                 </li>
                 <li class="nav-item">
@@ -46,7 +48,20 @@
     </nav>
         <div class="col">
             <div class="row px-5 d-flex">
-                <div class="col-2"></div>
+                <div class="col-2">
+                    <form action="/add_channel" method="POST" class="py-2 d-inline-flex">
+                        <input type="text" name="name" placeholder="Add a Channel">
+                        {% for error in get_flashed_messages(category_filter=["name"]) %}
+                            <p class="alert alert-danger">{{ error }}</p>
+                        {% endfor %}
+                        <input type="submit" value="+" class="btn btn-primary btn-sm ms-1">
+                    </form>
+                    <div class="d-flex flex-column">
+                        {% for channel in all_channels %}
+                            <label><a href="/go_to_channel/{{ channel.id }}">{{ channel.name }}</a></label>
+                        {% endfor %}
+                    </div>
+                </div>
                 <div class="col-8 bg-secondary bg-gradient d-flex justify-content-center">
                     <div class="text-center">
                         <div class="card" style="width: auto;">
@@ -57,10 +72,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-2 d-flex">
-                    <div class="row">
+                <div class="col-2">
+                    <div class="row d-flex flex-column">
                         {% for user in all_users %}
-                            <p>{{ user.first_name }} {{ user.last_name }}</p>
+                            <label>{{ user.first_name }} {{ user.last_name }}</label>
                         {% endfor %}
                     </div>
                 </div>
