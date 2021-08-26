@@ -66,3 +66,26 @@ def user_profile():
     }
     all_user_posts = Post.get_all_users_posts(user_data)
     return render_template('profile_page.html', all_user_posts = all_user_posts)
+
+@app.route("/delete/<id>")
+def delete(id):
+    data= {
+        "id": id
+    }
+    Post.delete(data)
+    return redirect("/dashboard")
+
+@app.route("/like_post/<id>")
+def like_post(id):
+    data= {
+        "id": id
+    }
+    Post.like_post(data)
+    return redirect("/dashboard")
+
+@app.route("/unlike_post/<id>")
+def unlike_post(id):
+    data= {
+        "id": id
+    }
+    Post.unlike_post(data)
