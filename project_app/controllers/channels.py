@@ -3,6 +3,7 @@ from project_app import app
 from flask import render_template, request, redirect, session
 from project_app.models.channel import Channel
 from project_app.models.user import User
+from project_app.models.post import Post
 from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt(app)
 
@@ -23,8 +24,7 @@ def add_channel():
     if not Channel.validate_channel(request.form):
         return redirect("/dashboard")
     data = {
-        "name": request.form["name"],
-        "user_id": session["account_logged_in"]
+        "name": request.form["name"]
     }
     Channel.create_channel(data)
     return redirect("/dashboard")
@@ -37,9 +37,9 @@ def go_to_channel(id):
     main_data= {
         "id" : session["account_logged_in"]
     }
-    one_channel= Channel.get_one(data)
+    one_channel= Post.get_posts_channel(data)
     account_logged_in = User.get_one(main_data)
-    all_users= User.get_all()
+    all_users= User.get_users_channel(data)
     all_channels= Channel.get_all_channels()
     return render_template("channel.html", user= account_logged_in, all_users= all_users, one_channel= one_channel, all_channels= all_channels)
 

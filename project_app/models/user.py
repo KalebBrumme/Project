@@ -71,4 +71,22 @@ class User:
             all_users.append(cls(user))
         return all_users
     
-    
+    @classmethod
+    def get_users_channel(cls, data):
+        query= "SELECT * FROM channels LEFT JOIN channels_has_users ON channels.id=channel_id LEFT JOIN users ON user_id=users.id WHERE channels.id=%(id)s;"
+        results = connectToMySQL("project").query_db(query, data)
+        channel_users= []
+        for row in results:
+            user= cls(row)
+            data= {
+                "id" : row["users.id"],
+                "first_name" : row["first_name"],
+                "last_name" : row["last_name"],
+                "email" : row["email"],
+                "password" : row["password"],
+                "created_at" : row["users.created_at"],
+                "updated_at" : row["users.updated_at"]
+            }
+            channel_users.append(user)
+        return channel_users
+

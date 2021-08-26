@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Channel</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
 </head>
 <body>
@@ -27,7 +27,9 @@
                 Dropdown
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="/upload">Upload</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="#">Contact Us</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="/log_out">Log Out</a></li>
@@ -47,26 +49,28 @@
         <div class="col">
             <div class="row px-5 d-flex">
                 <div class="col-2">
-                    <form action="/add_channel" method="POST" class="py-2 d-inline-flex">
-                        <input type="text" name="name" placeholder="Add a Channel">
-                        {% for error in get_flashed_messages(category_filter=["name"]) %}
-                            <p class="alert alert-danger">{{ error }}</p>
-                        {% endfor %}
-                        <input type="submit" value="+" class="btn btn-primary btn-sm ms-1">
+                    <form action="/add_channel" method="POST" class="py-2 d-flex">
+                        <input type="text" name="name" placeholder="Add Channel" class="border border-2 rounded" style="width: 80%;">
+                        <input type="submit" value="+" class="btn btn-outline-primary btn-sm ms-2 rounded-circle pt-0 px-2 fw-bold">
                     </form>
-                    <div class="d-flex flex-column">
-                        <a href="/to_dashboard">Dashboard</a>
+                    {% for error in get_flashed_messages(category_filter=["name"]) %}
+                        <p class="alert alert-danger">{{ error }}</p>
+                    {% endfor %}
+                    <div class="d-flex flex-column pe-5 vstack">
+                        <a href="/to_dashboard" class="text-decoration-none text-center link-primary py-1">Dashboard</a>
                         {% for channel in all_channels %}
-                            <label><a href="/go_to_channel/{{ channel.id }}">{{ channel.name }}</a></label>
+                            <a href="/go_to_channel/{{ channel.id }}" class="text-decoration-none text-center link-primary border-top border-1 py-1">{{ channel.name }}</a>
                         {% endfor %}
                     </div>
                 </div>
                 <div class="col-8 bg-secondary bg-gradient d-flex justify-content-center">
                     <div class="text-center">
                         <div class="card" style="width: auto;">
-                            <img src="/static/images/download.jpg" class="card-img-top" alt="test image">
+                            {% for post in posts %}
+                                
+                            {% endfor %}
                             <div class="card-body">
-                                <input type="text">
+                                <p>This will be the post descrpiton.</p>
                             </div>
                         </div>
                     </div>
