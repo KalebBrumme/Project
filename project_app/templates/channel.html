@@ -20,11 +20,11 @@
                 <a class="nav-link active" href="/profile_page">Profile</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link active" href="#">Link</a>
+                <a class="nav-link active" href="/dashboard">Dashboard</a>
                 </li>
                 <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Dropdown
+                Settings
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href="/upload">Upload</a></li>
@@ -48,15 +48,15 @@
     </nav>
         <div class="col">
             <div class="row px-5 d-flex">
-                <div class="col-2">
+                <div class="col-2" mt-2>
                     <form action="/add_channel" method="POST" class="py-2 d-flex">
-                        <input type="text" name="name" placeholder="Add Channel" class="border border-2 rounded" style="width: 80%;">
+                        <input type="text" name="name" placeholder="Add Channel" class="border border-2 rounded" style="width: 100%;">
                         <input type="submit" value="+" class="btn btn-outline-primary btn-sm ms-2 rounded-circle pt-0 px-2 fw-bold">
                     </form>
                     {% for error in get_flashed_messages(category_filter=["name"]) %}
                         <p class="alert alert-danger">{{ error }}</p>
                     {% endfor %}
-                    <div class="d-flex flex-column pe-5 vstack">
+                    <div class="d-flex flex-column vstack pe-2">
                         <a href="/to_dashboard" class="text-decoration-none text-center link-primary py-1">Dashboard</a>
                         {% for channel in all_channels %}
                             <a href="/go_to_channel/{{ channel.id }}" class="text-decoration-none text-center link-primary border-top border-1 py-1">{{ channel.name }}</a>

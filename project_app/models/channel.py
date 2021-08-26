@@ -26,6 +26,10 @@ class Channel:
         new_channel_id = connectToMySQL("project").query_db(query, data)
         return new_channel_id
 
+    # def add_user_to_channel(cls, data):
+    #     query = "INSERT INTO channels_has_users (user_id, channel_id) VALUES (%(user_id)s, %(channel_id)s);"
+    #     new_channel_users_id = connectToMySQL("project").query_db(query, data)
+        return new_channel_users_id
 
     @classmethod
     def get_all_channels(cls):
