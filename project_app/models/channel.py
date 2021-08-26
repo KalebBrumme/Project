@@ -1,6 +1,7 @@
 from project_app.config.pymysqlconnections import connectToMySQL
 from flask import flash
-from project_app.models.post import Post
+from project_app.models import post, user
+
 
 class Channel:
     def __init__(self, data):
@@ -26,9 +27,10 @@ class Channel:
         new_channel_id = connectToMySQL("project").query_db(query, data)
         return new_channel_id
 
-    # def add_user_to_channel(cls, data):
-    #     query = "INSERT INTO channels_has_users (user_id, channel_id) VALUES (%(user_id)s, %(channel_id)s);"
-    #     new_channel_users_id = connectToMySQL("project").query_db(query, data)
+    @classmethod
+    def add_user_to_channel(cls, data):
+        query = "INSERT INTO channels_has_users (user_id, channel_id) VALUES (%(user_id)s, %(channel_id)s);"
+        new_channel_users_id = connectToMySQL("project").query_db(query, data)
         return new_channel_users_id
 
     @classmethod
@@ -40,4 +42,23 @@ class Channel:
             all_channels.append(cls(channel))
         return all_channels
 
+    @classmethod
+    def get_one(cls, data):
+        query = "SELECT * FROM channels WHERE id = %(id)s;"
+        results = connectToMySQL('project').query_db(query, data)
+        return cls(results[0])
 
+
+    @property
+    def posts(self):
+        data = {
+            "channel_id" : self.id
+        }
+        return post.Post.get_all(data)
+
+    @property
+    def users(self):
+        data = {
+            "channel_id" : self.id
+        }
+        return user.User.get_all(data)

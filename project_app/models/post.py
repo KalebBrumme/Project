@@ -1,5 +1,9 @@
+import project_app
 from project_app.config.pymysqlconnections import connectToMySQL
 from flask import flash
+from project_app.models.user import User
+from project_app.models.channel import Channel
+from project_app.models.image import Image
 
 class Post:
     def __init__(self, data):
@@ -41,21 +45,42 @@ class Post:
 
 
     @classmethod
-    def get_all(cls):
-        query= "SELECT * FROM posts JOIN users ON user_id= users.id"
-        results = connectToMySQL("posts_db").query_db(query)
-        all_posts= []
-        for row in results:
-            post= cls(row)
-            user_data= {
-                "id" : row["users.id"],
-                "first_name" : row["first_name"],
-                "last_name" : row["last_name"],
-                "email" : row["email"],
-                "password" : row["password"],
-                "created_at" : row["users.created_at"],
-                "updated_at" : row["users.updated_at"]
-            }
-            post.username= User(user_data)
-            all_posts.append(post)
-        return all_posts
+    def get_all(cls, data):
+        query= "SELECT * FROM posts WHERE channel_id = %(channel_id)s;"
+        results = connectToMySQL("project").query_db(query, data)
+        return [cls(row) for row in results]
+    
+    @property
+    def posted_by(self):
+        data = {
+            'id' : self.user_id
+        }
+        return User.get_one(data)
+
+    @property
+    def channel(self):
+        data = {
+            'id' : self.channel_id
+        }
+        return Channel.get_one(data)
+
+    @property
+    def image(self):
+        data = {
+            'id' : self.image_id
+        }
+        return Image.get_one(data)
+
+    # @property
+    # def replies(self):
+    #     data = {
+    #         'post_id' : self.id
+    #     }
+    #     return Reply.get_all(data)
+
+        # all_posts= []
+        # for row in results:
+        #     post= cls(row)
+            
+        #     all_posts.append(post)
+        # return all_posts

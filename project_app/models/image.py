@@ -18,4 +18,8 @@ class Image:
         return connectToMySQL('project').query_db(query, data)
 
 
-    
+    @classmethod
+    def get_one(cls, data):
+        query = "SELECT * FROM images WHERE id = %(id)s;"
+        results = connectToMySQL('project').query_db(query, data)
+        return cls(results[0])
