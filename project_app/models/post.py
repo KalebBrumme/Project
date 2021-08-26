@@ -39,7 +39,7 @@ class Post:
             channel_posts.append(post)
         return channel_posts
 
-
+           
 @classmethod
     def get_all_ssssss(cls):
         query= "SELECT * FROM posts JOIN users ON user_id= users.id"
@@ -59,3 +59,4 @@ class Post:
             post.username= User(user_data)
             all_posts.append(post)
         return all_posts
+        
