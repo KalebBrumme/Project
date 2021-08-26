@@ -48,18 +48,18 @@
     </nav>
         <div class="col">
             <div class="row px-5 d-flex">
-                <div class="col-2">
-                    <form action="/add_channel" method="POST" class="py-2 d-inline-flex">
-                        <input type="text" name="name" placeholder="Add a Channel">
-                        {% for error in get_flashed_messages(category_filter=["name"]) %}
-                            <p class="alert alert-danger">{{ error }}</p>
-                        {% endfor %}
-                        <input type="submit" value="+" class="btn btn-primary btn-sm ms-1">
+                <div class="col-2" mt-2>
+                    <form action="/add_channel" method="POST" class="py-2 d-flex">
+                        <input type="text" name="name" placeholder="Add Channel" class="border border-2 rounded" style="width: 100%;">
+                        <input type="submit" value="+" class="btn btn-outline-primary btn-sm ms-2 rounded-circle pt-0 px-2 fw-bold">
                     </form>
-                    <div class="d-flex flex-column">
-                        <a href="/to_dashboard">Dashboard</a>
+                    {% for error in get_flashed_messages(category_filter=["name"]) %}
+                        <p class="alert alert-danger">{{ error }}</p>
+                    {% endfor %}
+                    <div class="d-flex flex-column vstack pe-2">
+                        <a href="/to_dashboard" class="text-decoration-none text-center link-primary py-1">Dashboard</a>
                         {% for channel in all_channels %}
-                            <label><a href="/go_to_channel/{{ channel.id }}">{{ channel.name }}</a></label>
+                            <a href="/go_to_channel/{{ channel.id }}" class="text-decoration-none text-center link-primary border-top border-1 py-1">{{ channel.name }}</a>
                         {% endfor %}
                     </div>
                 </div>
@@ -76,9 +76,9 @@
                     </div>
                 </div>
                 <div class="col-2">
-                    <div class="row d-flex flex-column">
+                    <div class="row d-flex flex-column mx-1">
                         {% for user in all_users %}
-                            <label>{{ user.first_name }} {{ user.last_name }}</label>
+                            <label class="text-center link-dark border-top border-1 py-1">{{ user.first_name }} {{ user.last_name }}</label>
                         {% endfor %}
                     </div>
                 </div>
