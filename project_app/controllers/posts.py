@@ -58,12 +58,6 @@ def download_file(name):
 
 
 
-def get_file():
-    Post.get_all()
-
-    return send_from_directory(app.config['UPLOAD_PATH'], filename, as_attachment = True)
-
-
 
 @app.route('/profile_page')
 def user_profile():
