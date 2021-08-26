@@ -1,4 +1,3 @@
-from types import MethodDescriptorType
 from project_app import app
 from flask import render_template, request, redirect, session
 from project_app.models.channel import Channel
