@@ -36,7 +36,7 @@
                 </ul>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link active" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                <a class="nav-link active" href="#" tabindex="-1" aria-disabled="true">Something</a>
                 </li>
             </ul>
             <form class="d-flex">
@@ -66,7 +66,9 @@
                 <div class="col-8 bg-secondary bg-gradient d-flex justify-content-center">
                     <div class="text-center">
                         <div class="card" style="width: auto;">
-                            {% for post in posts %}
+                            {% for post in this_channel.posts %}
+                                <img src="{{ url_for('static', filename='upload_folder/images/') }}{{ post.image.link }}" alt="Image">
+                                
                                 
                             {% endfor %}
                             <div class="card-body">
@@ -77,7 +79,7 @@
                 </div>
                 <div class="col-2">
                     <div class="row d-flex flex-column mx-1">
-                        {% for user in all_users %}
+                        {% for user in this_channel.users %}
                             <label class="text-center link-dark border-top border-1 py-1">{{ user.first_name }} {{ user.last_name }}</label>
                         {% endfor %}
                     </div>

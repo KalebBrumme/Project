@@ -5,40 +5,20 @@ from flask import render_template, request, redirect, session, flash, url_for, s
 from werkzeug.utils import secure_filename
 from project_app.models.post import Post
 from project_app.models.user import User
+from project_app.models.image import Image
 from project_app.models.channel import Channel
 
-def get_file():
-    return send_from_directory()
 
 
-@app.route("/dashboard")
-def dashboard():
-    if "account_logged_in" not in session:
-        return redirect("/log_out")
-    data = {
-        "id" : session["account_logged_in"]
-    }
-    account_logged_in = User.get_one(data)
-    all_users= User.get_all()
-    all_channels= Channel.get_all_channels()
-    return render_template("dashboard.html", user= account_logged_in, all_users= all_users, all_channels= all_channels)
 
-@app.route("/to_dashboard")
-def to_dashboard():
-    return redirect("/dashboard")
 
 
 @app.route('/upload')
 def upload():
     return render_template('upload.html')
 
-
-def image_to_user():
-    data = {
-        "id" : session["account_logged_in"]
-    }
-    user = User.get_one(data)
-    
+def generate_file_name():
+    return f"{session['account_logged_in']}_{uuid4()}"
 
 
 def allowed_file(filename):
@@ -61,8 +41,13 @@ def upload_file():
             return redirect('/upload')
         print(file)
         if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(app.static_folder, f"{app.config['UPLOAD_PATH']}/{filename}", session['account_logged_in']))
+            filename = generate_file_name()
+            data = {
+                "user_id" : session['account_logged_in'],
+                "filename" : filename
+            }
+            Image.add_image(data)
+            file.save(os.path.join(app.static_folder, f"{app.config['UPLOAD_PATH']}/{filename}"))
             return redirect('/dashboard')
     return redirect('/dashboard')
 
@@ -70,6 +55,15 @@ def upload_file():
 @app.route('/uploads/<filename>')
 def download_file(name):
     return send_from_directory(app.config['UPLOAD_PATH'], name)
+
+
+
+def get_file():
+    Post.get_all()
+
+    return send_from_directory(app.config['UPLOAD_PATH'], filename, as_attachment = True)
+
+
 
 @app.route('/profile_page')
 def user_profile():
