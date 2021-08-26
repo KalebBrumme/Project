@@ -38,4 +38,3 @@ class Post:
             }
             channel_posts.append(post)
         return channel_posts
-        

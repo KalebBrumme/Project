@@ -5,10 +5,9 @@ from flask import render_template, request, redirect, session, flash, url_for, s
 from werkzeug.utils import secure_filename
 from project_app.models.post import Post
 from project_app.models.user import User
+from project_app.models.image import Image
 from project_app.models.channel import Channel
 
-def get_file():
-    return send_from_directory()
 
 
 @app.route("/dashboard")
@@ -32,13 +31,8 @@ def to_dashboard():
 def upload():
     return render_template('upload.html')
 
-
-def image_to_user():
-    data = {
-        "id" : session["account_logged_in"]
-    }
-    user = User.get_one(data)
-    
+def generate_file_name():
+    return f"{session['account_logged_in']}_{uuid4()}"
 
 
 def allowed_file(filename):
@@ -61,8 +55,13 @@ def upload_file():
             return redirect('/upload')
         print(file)
         if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(app.static_folder, f"{app.config['UPLOAD_PATH']}/{filename}", session['account_logged_in']))
+            filename = generate_file_name()
+            data = {
+                "user_id" : session['account_logged_in'],
+                "filename" : filename
+            }
+            Image.add_image(data)
+            file.save(os.path.join(app.static_folder, f"{app.config['UPLOAD_PATH']}/{filename}"))
             return redirect('/dashboard')
     return redirect('/dashboard')
 
@@ -70,6 +69,15 @@ def upload_file():
 @app.route('/uploads/<filename>')
 def download_file(name):
     return send_from_directory(app.config['UPLOAD_PATH'], name)
+
+
+
+def get_file():
+    Post.get_all()
+    
+    return send_from_directory(app.config['UPLOAD_PATH'], filename, as_attachment = True)
+
+
 
 @app.route('/profile_page')
 def user_profile():
