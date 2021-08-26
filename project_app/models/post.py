@@ -33,8 +33,30 @@ class Post:
             data= {
                 "id" : row["channels.id"],
                 "name" : row["name"],
-                "created_at" : row["channelss.created_at"],
-                "updated_at" : row["channelss.updated_at"]
+                "created_at" : row["channels.created_at"],
+                "updated_at" : row["channels.updated_at"]
             }
             channel_posts.append(post)
         return channel_posts
+
+           
+@classmethod
+    def get_all_ssssss(cls):
+        query= "SELECT * FROM posts JOIN users ON user_id= users.id"
+        results = connectToMySQL("posts_db").query_db(query)
+        all_posts= []
+        for row in results:
+            post= cls(row)
+            user_data= {
+                "id" : row["users.id"],
+                "first_name" : row["first_name"],
+                "last_name" : row["last_name"],
+                "email" : row["email"],
+                "password" : row["password"],
+                "created_at" : row["users.created_at"],
+                "updated_at" : row["users.updated_at"]
+            }
+            post.username= User(user_data)
+            all_posts.append(post)
+        return all_posts
+        
