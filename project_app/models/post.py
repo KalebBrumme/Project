@@ -39,9 +39,9 @@ class Post:
             channel_posts.append(post)
         return channel_posts
 
-           
-@classmethod
-    def get_all_ssssss(cls):
+
+    @classmethod
+    def get_all(cls):
         query= "SELECT * FROM posts JOIN users ON user_id= users.id"
         results = connectToMySQL("posts_db").query_db(query)
         all_posts= []
@@ -59,4 +59,3 @@ class Post:
             post.username= User(user_data)
             all_posts.append(post)
         return all_posts
-        
