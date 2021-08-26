@@ -4,6 +4,7 @@ from flask import flash
 from project_app.models.user import User
 from project_app.models.channel import Channel
 from project_app.models.image import Image
+from project_app.models.reply import Reply
 
 class Post:
     def __init__(self, data):
@@ -71,16 +72,9 @@ class Post:
         }
         return Image.get_one(data)
 
-    # @property
-    # def replies(self):
-    #     data = {
-    #         'post_id' : self.id
-    #     }
-    #     return Reply.get_all(data)
-
-        # all_posts= []
-        # for row in results:
-        #     post= cls(row)
-            
-        #     all_posts.append(post)
-        # return all_posts
+    @property
+    def replies(self):
+        data = {
+            'id' : self.id
+        }
+        return Reply.get_all(data)

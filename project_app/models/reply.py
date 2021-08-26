@@ -3,23 +3,17 @@ from project_app.config.pymysqlconnections import connectToMySQL
 
 
 
-class Image:
+class Reply:
     def __init__(self, data):
         self.id = data['id']
-        self.link = data['link']
+        self.replies = data['replies']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
+        self.post_id = data['post_id']
         self.user_id = data['user_id']
 
-
     @classmethod
-    def add_image(cls, data):
-        query = "INSERT INTO images (link, user_id) VALUES (%(filename)s, %(user_id)s);" #link should be filename
-        return connectToMySQL('project').query_db(query, data)
-
-
-    @classmethod
-    def get_one(cls, data):
-        query = "SELECT * FROM images WHERE id = %(id)s;"
+    def get_all(cls, data):
+        query = "SELECT * FROM replies WHERE id = %(id)s;"
         results = connectToMySQL('project').query_db(query, data)
         return cls(results[0])

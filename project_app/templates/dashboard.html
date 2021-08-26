@@ -71,13 +71,11 @@
                     <div class="text-center">
                         <div class="card" style="width: auto;">
                             {% for post in this_channel.posts %}
+                                <h3>{{ post.name }}</h3>
                                 <img src="{{ url_for('static', filename='upload_folder/images/') }}{{ post.image.link }}" alt="Image">
-                                
+                                <p>{{ post.description }}</p>
                                 
                             {% endfor %}
-                            <div class="card-body">
-                                <p>This will be the post descrpiton.</p>
-                            </div>
                         </div>
                     </div>
                 </div>
