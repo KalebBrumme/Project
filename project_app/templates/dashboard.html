@@ -74,7 +74,9 @@
                                 <h3>{{ post.name }}</h3>
                                 <img src="{{ url_for('static', filename='upload_folder/images/') }}{{ post.image.link }}" alt="Image">
                                 <p>{{ post.description }}</p>
-                                
+                                    <a href="/like_post/{{ post.id }}">Like</a>
+                                    <a href="/unlike_post/{{ post.id }}">Un-like</a>
+                                <p>{{ post.like_count }} likes</p>
                             {% endfor %}
                         </div>
                     </div>
