@@ -34,11 +34,14 @@ def upload():
 
 
 def image_to_user():
-    pass
+    data = {
+        "id" : session["account_logged_in"]
+    }
+    user = User.get_one(data)
+    
 
 
 def allowed_file(filename):
-    print(filename)
     return '.' in filename and \
         filename.rsplit('.', 1)[1].lower() in app.config['UPLOAD_EXTENSIONS']
 
@@ -59,7 +62,7 @@ def upload_file():
         print(file)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(os.path.join(app.static_folder, f"{app.config['UPLOAD_PATH']}/{filename}"))
+            file.save(os.path.join(app.static_folder, f"{app.config['UPLOAD_PATH']}/{filename}", session['account_logged_in']))
             return redirect('/dashboard')
     return redirect('/dashboard')
 
