@@ -113,7 +113,7 @@
                                 <button onclick="myFunction()" class="btn btn-outline-primary btn-sm">Comment</button>
                             </div>
                             <div id="myDIV">
-                                <form action=>
+                                <form action="/add_reply/{{ post.id }}" method="POST">
                                     <input type="text" name="reply" >
                                     <input type="submit" name="reply" value="comment" >
                                 </form>

@@ -90,3 +90,13 @@ def like_post(id):
     }
     Post.like_post(data)
     return redirect("/dashboard")
+
+@app.route('/add_reply/<int:id>', methods=['POST'])
+def add_reply(id):
+    data = {
+        "user_id": session['account_logged_in'],
+        "replies": request.form['reply'],
+        "post_id": id
+    }
+    result = Reply.make_reply(data)
+    return redirect('/dashboard')
