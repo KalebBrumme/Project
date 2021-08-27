@@ -12,13 +12,11 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <form class="form-floating"
                 <form class="form-floating" action="/uploads" enctype="multipart/form-data" method="POST">
                     <textarea name = "description" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
                     <label for="floatingTextarea">Write something....</label>
-                    <br>
+                    <input type="text" name="name" placeholder="Name of Post">
                     <input accept="image/*" type='file' id="myFile" name="file">
-                    <br>
                     <input type="submit" value="Submit">
                 </form>
                 {% for error in get_flashed_messages() %}

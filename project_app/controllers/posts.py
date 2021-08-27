@@ -46,8 +46,16 @@ def upload_file():
                 "user_id" : session['account_logged_in'],
                 "filename" : filename
             }
-            Image.add_image(data)
+            image_id = Image.add_image(data)
             file.save(os.path.join(app.static_folder, f"{app.config['UPLOAD_PATH']}/{filename}"))
+            data = {
+                "name" : request.form['name'],
+                "description" : request.form['description'],
+                "user_id" : session['account_logged_in'],
+                "channel_id" : request.form['channel_id'],
+                "image_id" : image_id
+            }
+            Post.save_post(data)
             return redirect('/dashboard')
     return redirect('/dashboard')
 
