@@ -89,10 +89,12 @@
                             {% endfor %}
                         </div>
                     </div>
-                    <div class="text-center overflow-auto" style="height: 35rem;">
-                        <div class="card mb-2" style="width: inherit;">
+                    <div class="text-center overflow-auto" style="height: 50em;">
+                        <div class="card mx-3 mb-3" style="width: inherit;">
                             {% for post in this_channel.posts %}
-                                <img src="{{ url_for('static', filename='upload_folder/images/') }}{{ post.image.link }}" alt="Image">
+                                <div class="container d-flex justify-content-center bg-secondary bg-opacity-10">
+                                    <img src="{{ url_for('static', filename='upload_folder/images/') }}{{ post.image.link }}" alt="Image" class="img-fluid">
+                                </div>
                                 <div class="row p-4">
                                     <div class="d-flex align-items-center">
                                         <h3 class="me-4">{{ post.name }}</h3>
