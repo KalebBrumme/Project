@@ -90,6 +90,9 @@
                                     <label class="me-4">{{ post.like_count }} likes</label>
                                     <a href="/like_post/{{ post.id }}" class="me-3 btn btn-outline-primary btn-sm">Like</a>
                                     <a href="/unlike_post/{{ post.id }}" class="me-1 btn btn-outline-primary btn-sm">Un-like</a>
+                                    {% for reply in post.replies %}
+                                        <p>{{ reply }}</p>
+                                    {% endfor %}
                                 </div>
                             </div>
                             <div class="row px-2 pt-3 pb-2 border border-1 mx-3">

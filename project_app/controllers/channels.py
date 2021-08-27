@@ -3,6 +3,7 @@ from flask import render_template, request, redirect, session
 from project_app.models.channel import Channel
 from project_app.models.user import User
 from project_app.models.post import Post
+from project_app.models.reply import Reply
 from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt(app)
 
