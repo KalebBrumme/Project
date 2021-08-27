@@ -101,23 +101,24 @@
                                         <a href="/like_post/{{ post.id }}" class="me-1 btn btn-outline-primary btn-sm">Like</a>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row px-2 pt-3 pb-2 border border-1 mx-3">
-                                <p class="text-start">{{ post.description }}</p>
-                            </div>
-                            {% if user.id == post.user_id%}
-                            <div class="d-flex justify-content-end p-3 pe-4">
-                                <a href="/delete/{{ post.id }}" class="btn btn-outline-primary btn-sm">Delete</a>
-                                <button onclick="myFunction()" class="btn btn-outline-primary btn-sm">Comment</button>
-                            </div>
-                            <div id="myDIV">
-                                <form action="/add_reply/{{ post.id }}" method="POST">
-                                    <input type="text" name="reply" >
-                                    <input type="submit" name="reply" value="comment" >
-                                </form>
-                            </div>
-                            {% endif%}
-                            <br>
+                                <div class="row px-2 pt-3 pb-2 border border-1 mx-3">
+                                    <p class="text-start">{{ post.description }}</p>
+                                </div>
+                                <div class="d-flex justify-content-end p-3 pe-4">
+                                    <button onclick="myFunction()" class="btn btn-outline-primary btn-sm">Comment</button>
+                                    {% if user.id == post.user_id%}
+                                        <a href="/delete/{{ post.id }}" class="btn btn-outline-primary btn-sm ms-3">Delete</a>
+                                    {% endif%}
+                                </div>
+                                <div id="myDIV" class="bg-secondary bg-opacity-25 pt-1 pb-2">
+                                    <div class="card p-3" style="height: 5rem;">
+                                        <form action="/add_reply/{{ post.id }}" method="POST" class="d-flex align-self-center">
+                                            <input type="text" name="reply" class="me-3">
+                                            <input type="submit" name="reply" value="Reply" class="me-auto btn btn-outline-primary btn-sm">
+                                        </form>
+                                    </div>
+                                </div>
+                                <br>
                             {% endfor %}
                         </div>
                     </div>
