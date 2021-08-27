@@ -3,6 +3,7 @@ from flask import render_template, request, redirect, session
 from project_app.models.channel import Channel
 from project_app.models.user import User
 from project_app.models.post import Post
+from project_app.models.reply import Reply
 from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt(app)
 
@@ -15,12 +16,13 @@ def dashboard(id=1):
         "id" : session["account_logged_in"]
     }
     account_logged_in = User.get_one(data)
+    all_users= User.all()
     all_channels= Channel.get_all_channels()
     data = {
         'id' : id
     }
     this_channel = Channel.get_one(data)
-    return render_template("dashboard.html", user = account_logged_in, all_channels = all_channels, this_channel = this_channel)
+    return render_template("dashboard.html", user = account_logged_in, all_users=all_users, all_channels = all_channels, this_channel = this_channel)
 
 
 @app.route("/to_dashboard")

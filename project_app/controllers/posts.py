@@ -7,6 +7,7 @@ from project_app.models.post import Post
 from project_app.models.user import User
 from project_app.models.image import Image
 from project_app.models.channel import Channel
+from project_app.models.reply import Reply
 
 
 
@@ -88,12 +89,4 @@ def like_post(id):
         "id": id
     }
     Post.like_post(data)
-    return redirect("/dashboard")
-
-@app.route("/unlike_post/<id>")
-def unlike_post(id):
-    data= {
-        "id": id
-    }
-    Post.unlike_post(data)
     return redirect("/dashboard")
