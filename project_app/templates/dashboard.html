@@ -10,33 +10,27 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
-            <span class="navbar-brand mb-0 h1">Server</span>
+            <span class="navbar-brand mb-0 h1">Welcome {{ user.first_name }} {{ user.last_name }}</span>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                <a class="nav-link active" href="/profile_page">Profile</a>
-                </li>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                 <a class="nav-link active" href="/dashboard">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link active" href="/profile_page">Profile</a>
                 </li>
                 <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Settings
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="/upload">Upload</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="#">Contact Us</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="/log_out">Log Out</a></li>
                 </ul>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link active" href="#" tabindex="-1" aria-disabled="true">Something</a>
                 </li>
             </ul>
             <form class="d-flex">
@@ -47,9 +41,9 @@
         </div>
     </nav>
         <div class="col">
-            <div class="row px-5 d-flex">
-                <div class="col-2" mt-2>
-                    <div class="row">
+            <div class="row px-1 ps-5 pe-4 d-flex">
+                <div class="col-2 mt-4">
+                    <div class="row me-2">
                         <form action="/add_channel" method="POST" class="py-2 d-flex">
                             <input type="text" name="name" placeholder="Add Channel" class="border border-2 rounded" style="width: 100%;">
                             <input type="submit" value="+" class="btn btn-outline-primary btn-sm ms-2 rounded-circle pt-0 px-2 fw-bold">
@@ -68,37 +62,46 @@
                             {% endfor %}
                         </div>
                     </div>
-                    <div class="row">
-                        <form class="form-floating" action="/uploads/{{ this_channel.id }}" enctype="multipart/form-data" method="POST">
-                            <textarea name = "description" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
-                            <label for="floatingTextarea">Write something....</label>
-                            <input type="text" name="name" placeholder="Name of Post">
-                            <input accept="image/*" type='file' id="myFile" name="file">
-                            <input type="submit" value="Submit">
-                        </form>
-                        {% for error in get_flashed_messages() %}
-                            <p>{{ error }}</p>
-                        {% endfor %}
-                    </div>
                 </div>
-                <div class="col-8 bg-secondary bg-gradient d-flex justify-content-center">
+                <div class="col-8 bg-secondary bg-gradient d-flex justify-content-center flex-column">
+                    <div style="width: 100%;">
+                        <div class="row border border-1 bg-light p-3">
+                            <form class="form-floating" action="/uploads/{{ this_channel.id }}" enctype="multipart/form-data" method="POST">
+                                <input type="text" name="name" placeholder="Name of Post" class="my-3 me-3" style="width: 25%;">
+                                <input accept="image/*" type='file' id="myFile" name="file" class="my-3">
+                                <textarea name = "description" class="form-control" placeholder="Write something..." id="floatingTextarea" class="m-2 lh-sm word-break: break-word" style="height: 40%;"></textarea>
+                                <div class="d-flex justify-content-end my-3">
+                                    <input type="submit" value="Submit" class="btn btn-outline-primary btn-sm m-2" style="width: 20%;">
+                                </div>
+                            </form>
+                            {% for error in get_flashed_messages() %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    </div>
                     <div class="text-center">
-                        <div class="card" style="width: auto;">
+                        <div class="card" style="width: inherit;">
                             {% for post in this_channel.posts %}
+                            <img src="{{ url_for('static', filename='upload_folder/images/') }}{{ post.image.link }}" alt="Image">
+                            <div class="row d-flex">
                                 <h3>{{ post.name }}</h3>
-                                <img src="{{ url_for('static', filename='upload_folder/images/') }}{{ post.image.link }}" alt="Image">
-                                <p>{{ post.description }}</p>
                                 <a href="/like_post/{{ post.id }}">Like</a>
                                 <a href="/unlike_post/{{ post.id }}">Un-like</a>
                                 <p>{{ post.like_count }} likes</p>
+                                <a href="/delete/{{ post.id }}">Delete</a>
+                            </div>
+                            <div class="row">
+                                <p>{{ post.description }}</p>
+                            </div>
                             {% endfor %}
                         </div>
                     </div>
                 </div>
-                <div class="col-2">
-                    <div class="row d-flex flex-column mx-1">
+                <div class="col-2 mt-4">
+                    <div class="row d-flex flex-column mx-2 px-1">
+                        <label class="py-2">Users: </label>
                         {% for user in this_channel.users %}
-                            <label class="text-center link-dark border-top border-1 py-1">{{ user.first_name }} {{ user.last_name }}</label>
+                            <label class="text-center link-dark border-top border-1 py-2">{{ user.first_name }} {{ user.last_name }}</label>
                         {% endfor %}
                     </div>
                 </div>
