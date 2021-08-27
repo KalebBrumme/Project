@@ -92,7 +92,9 @@
                     <div class="text-center overflow-auto" style="height: 35rem;">
                         <div class="card mb-2" style="width: 99%;">
                             {% for post in this_channel.posts %}
-                                <img src="{{ url_for('static', filename='upload_folder/images/') }}{{ post.image.link }}" class="img-fluid height: 50%; width: 50%;" alt="Image">
+                                <div class="d-flex bg-secondary bg-opacity-10 justify-content-center">
+                                    <img src="{{ url_for('static', filename='upload_folder/images/') }}{{ post.image.link }}" alt="Image" class="img-fluid">
+                                </div>
                                 <div class="row p-4">
                                     <div class="d-flex align-items-center">
                                         <h3 class="me-4">{{ post.name }}</h3>
@@ -110,7 +112,7 @@
                                     <a href="/delete/{{ post.id }}" class="btn btn-outline-primary btn-sm ms-3">Delete</a>
                                     {% endif%}
                                 </div>
-                                <div class="row bg-secondary border border-1 bg-opacity-10 d-flex flex-start p-3 mt-3 mx-2 text-start">
+                                <div class="row bg-secondary border border-1 bg-opacity-10 d-flex flex-start p-3 mt-3 text-start">
                                     {% for reply in post.replies %}
                                         <div class="border bg-white p-3 d-flex">
                                             <p>{{ reply.replies }}</p>
@@ -126,8 +128,6 @@
                                         </form>
                                     </div>
                                 </div>
-
-                                <br>
                             {% endfor %}
                         </div>
                     </div>
