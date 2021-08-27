@@ -98,5 +98,5 @@ def add_reply(id):
         "replies": request.form['reply'],
         "post_id": id
     }
-    result = Reply.make_reply(data)
+    Reply.make_reply(data)
     return redirect('/dashboard')

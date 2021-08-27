@@ -14,15 +14,18 @@ class Reply:
 
     @classmethod
     def get_all(cls, data):
-        query = "SELECT * FROM replies WHERE id = %(id)s;"
+        query = "SELECT * FROM replies WHERE post_id = %(id)s;"
         results = connectToMySQL('project').query_db(query, data)
+        replies = []
         if results:
-            return cls(results[0])
+            for row in results:
+                replies.append(cls(row))
+            return replies
         else:
             return results
 
     @classmethod
     def make_reply(cls, data):
         query = "INSERT INTO replies (replies, post_id, user_id) VALUES (%(replies)s, %(post_id)s, %(user_id)s);"
-        new_reply = connectToMySQL('project').query_db(query, data)
-        return new_reply
+        return connectToMySQL('project').query_db(query, data)
+

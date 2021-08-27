@@ -90,15 +90,18 @@
                         </div>
                     </div>
                     <div class="text-center overflow-auto" style="height: 35rem;">
-                        <div class="card mb-2" style="width: inherit;">
+                        <div class="card mb-2" style="width: 99%;">
                             {% for post in this_channel.posts %}
-                                <img src="{{ url_for('static', filename='upload_folder/images/') }}{{ post.image.link }}" alt="Image">
+                                <img src="{{ url_for('static', filename='upload_folder/images/') }}{{ post.image.link }}" class="img-fluid height: 50%; width: 50%;" alt="Image">
                                 <div class="row p-4">
                                     <div class="d-flex align-items-center">
                                         <h3 class="me-4">{{ post.name }}</h3>
                                         <label class="me-auto">{{ post.created_at.strftime('%Y-%m-%d') }} at {{ post.created_at.strftime('%H:%M %p') }}</label>
                                         <label class="me-4">{{ post.like_count }} likes</label>
                                         <a href="/like_post/{{ post.id }}" class="me-1 btn btn-outline-primary btn-sm">Like</a>
+                                        {% for reply in post.replies %}
+                                            <p>{{ reply.replies }}</p>
+                                        {% endfor %}
                                     </div>
                                 </div>
                                 <div class="row px-2 pt-3 pb-2 border border-1 mx-3">
