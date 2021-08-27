@@ -62,3 +62,4 @@ class Channel:
             "channel_id" : self.id
         }
         return user.User.get_all(data)
+
