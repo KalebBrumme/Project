@@ -53,7 +53,7 @@ class Post:
 
     @classmethod
     def get_all(cls, data):
-        query= "SELECT * FROM posts WHERE channel_id = %(channel_id)s;"
+        query= "SELECT * FROM posts WHERE channel_id = %(channel_id)s ORDER BY created_at DESC;"
         results = connectToMySQL("project").query_db(query, data)
         return [cls(row) for row in results]
     
@@ -96,8 +96,3 @@ class Post:
         connectToMySQL("project").query_db(query, data)
         return data["id"]
 
-    @classmethod
-    def unlike_post(cls, data):
-        query = "UPDATE posts SET like_count= like_count - 1 WHERE id= %(id)s;"
-        connectToMySQL("project").query_db(query, data)
-        return data["id"]

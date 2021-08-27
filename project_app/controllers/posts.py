@@ -89,11 +89,3 @@ def like_post(id):
     }
     Post.like_post(data)
     return redirect("/dashboard")
-
-@app.route("/unlike_post/<id>")
-def unlike_post(id):
-    data= {
-        "id": id
-    }
-    Post.unlike_post(data)
-    return redirect("/dashboard")
