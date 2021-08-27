@@ -10,13 +10,6 @@ from project_app.models.channel import Channel
 
 
 
-
-
-
-@app.route('/upload')
-def upload():
-    return render_template('upload.html')
-
 def generate_file_name():
     return f"{session['account_logged_in']}_{uuid4()}"
 
@@ -60,13 +53,6 @@ def upload_file(id):
     return redirect('/dashboard')
 
 
-@app.route('/uploads/<filename>')
-def download_file(name):
-    return send_from_directory(app.config['UPLOAD_PATH'], name)
-
-
-
-
 @app.route('/profile_page')
 def user_profile():
     user_data = {
@@ -74,6 +60,13 @@ def user_profile():
     }
     all_user_posts = Post.get_all_users_posts(user_data)
     return render_template('profile_page.html', all_user_posts = all_user_posts)
+
+
+@app.route('/user_settings/<int:id>')
+def user_settings():
+    pass
+
+
 
 @app.route("/delete/<id>")
 def delete(id):

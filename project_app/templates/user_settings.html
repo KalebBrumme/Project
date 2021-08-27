@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x' crossorigin='anonymous'>
+    <title>Settings</title>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -46,35 +45,10 @@
             </div>
         </div>
     </nav>
-    <div class="container-fluid">
+        <div class="col">
             <div class="row">
-                <div class="col-4">
-                    <img src="static/upload_folder/images/kitty_img1.jpg" class="img-fluid" alt="kitty_img">
-                    <h1>Username</h1>
-                    <h2>Links</h2>
-                    <a href="#">Edit profile picture</a>
-                    <br>
-                    <a href="#">Edit settings</a>
-                    <br>
-                    <h1>About</h1>
-                    <h3>Hobbies</h3>
-                    <p>Description of hobby/hobbies</p>
-                </div>
-                <div class="col-8">
-                    {% for post in all_user_posts %}
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col">
-                                <p>Date: {{ post.created_at }}</p>
-                                <p>{{ post.description }}</p>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
+                
             </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
-
+        </div>
 </body>
 </html>
