@@ -69,8 +69,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <form class="form-floating" action="/uploads" enctype="multipart/form-data" method="POST">
-                            <input type="hidden" value="{{ id }}" name="channel_id">
+                        <form class="form-floating" action="/uploads/{{ this_channel.id }}" enctype="multipart/form-data" method="POST">
                             <textarea name = "description" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
                             <label for="floatingTextarea">Write something....</label>
                             <input type="text" name="name" placeholder="Name of Post">
@@ -89,8 +88,8 @@
                                 <h3>{{ post.name }}</h3>
                                 <img src="{{ url_for('static', filename='upload_folder/images/') }}{{ post.image.link }}" alt="Image">
                                 <p>{{ post.description }}</p>
-                                    <a href="/like_post/{{ post.id }}">Like</a>
-                                    <a href="/unlike_post/{{ post.id }}">Un-like</a>
+                                <a href="/like_post/{{ post.id }}">Like</a>
+                                <a href="/unlike_post/{{ post.id }}">Un-like</a>
                                 <p>{{ post.like_count }} likes</p>
                             {% endfor %}
                         </div>

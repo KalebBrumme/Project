@@ -26,8 +26,8 @@ def allowed_file(filename):
         filename.rsplit('.', 1)[1].lower() in app.config['UPLOAD_EXTENSIONS']
 
 
-@app.route("/uploads", methods = ['POST'])
-def upload_file():
+@app.route("/uploads/<id>", methods = ['POST'])
+def upload_file(id):
     if "account_logged_in" not in session:
         return redirect("/log_out")
     if request.method == 'POST':
@@ -52,7 +52,7 @@ def upload_file():
                 "name" : request.form['name'],
                 "description" : request.form['description'],
                 "user_id" : session['account_logged_in'],
-                "channel_id" : request.form['channel_id'],
+                "channel_id" : id,
                 "image_id" : image_id
             }
             Post.save_post(data)
