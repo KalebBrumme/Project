@@ -83,16 +83,22 @@
                         <div class="card" style="width: inherit;">
                             {% for post in this_channel.posts %}
                             <img src="{{ url_for('static', filename='upload_folder/images/') }}{{ post.image.link }}" alt="Image">
-                            <div class="row d-flex">
-                                <h3>{{ post.name }}</h3>
-                                <a href="/like_post/{{ post.id }}">Like</a>
-                                <a href="/unlike_post/{{ post.id }}">Un-like</a>
-                                <p>{{ post.like_count }} likes</p>
-                                <a href="/delete/{{ post.id }}">Delete</a>
+                            <div class="row p-4">
+                                <div class="d-flex align-items-center">
+                                    <h3 class="me-4">{{ post.name }}</h3>
+                                    <label class="me-auto">{{ post.created_at.strftime('%Y-%m-%d') }} at {{ post.created_at.strftime('%H:%M %p') }}</label>
+                                    <label class="me-4">{{ post.like_count }} likes</label>
+                                    <a href="/like_post/{{ post.id }}" class="me-3 btn btn-outline-primary btn-sm">Like</a>
+                                    <a href="/unlike_post/{{ post.id }}" class="me-1 btn btn-outline-primary btn-sm">Un-like</a>
+                                </div>
                             </div>
-                            <div class="row">
-                                <p>{{ post.description }}</p>
+                            <div class="row px-2 pt-3 pb-2 border border-1 mx-3">
+                                <p class="text-start">{{ post.description }}</p>
                             </div>
+                            <div class="d-flex justify-content-end p-3 pe-4">
+                                <a href="/delete/{{ post.id }}" class="btn btn-outline-primary btn-sm">Delete</a>
+                            </div>
+                            <br>
                             {% endfor %}
                         </div>
                     </div>
