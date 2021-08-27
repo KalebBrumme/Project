@@ -84,3 +84,20 @@ class Post:
             'id' : self.id
         }
         return Reply.get_all(data)
+
+    @classmethod
+    def delete(cls, data):
+        query= "DELETE FROM posts WHERE id = %(id)s;"
+        connectToMySQL("project").query_db(query, data)
+
+    @classmethod
+    def like_post(cls, data):
+        query = "UPDATE posts SET like_count= like_count + 1 WHERE id= %(id)s;"
+        connectToMySQL("project").query_db(query, data)
+        return data["id"]
+
+    @classmethod
+    def unlike_post(cls, data):
+        query = "UPDATE posts SET like_count= like_count - 1 WHERE id= %(id)s;"
+        connectToMySQL("project").query_db(query, data)
+        return data["id"]
