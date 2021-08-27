@@ -98,9 +98,11 @@
                             <div class="row px-2 pt-3 pb-2 border border-1 mx-3">
                                 <p class="text-start">{{ post.description }}</p>
                             </div>
+                            {% if user.id == post.user_id%}
                             <div class="d-flex justify-content-end p-3 pe-4">
                                 <a href="/delete/{{ post.id }}" class="btn btn-outline-primary btn-sm">Delete</a>
                             </div>
+                            {% endif%}
                             <br>
                             {% endfor %}
                         </div>
@@ -109,6 +111,11 @@
                 <div class="col-2 mt-4">
                     <div class="row d-flex flex-column mx-2 px-1">
                         <label class="py-2">Users: </label>
+                        {% if this_channel.id == 1 %}
+                            {% for user in all_users %}
+                                <label class="text-center link-dark border-top border-1 py-2">{{ user.first_name }} {{ user.last_name }}</label>
+                            {% endfor %}
+                        {% endif%}
                         {% for user in this_channel.users %}
                             <label class="text-center link-dark border-top border-1 py-2">{{ user.first_name }} {{ user.last_name }}</label>
                         {% endfor %}

@@ -71,4 +71,11 @@ class User:
             all_users.append(cls(user))
         return all_users
 
-
+    @classmethod
+    def all(cls):
+        query= "SELECT * FROM users;"
+        results = connectToMySQL("project").query_db(query)
+        all_users= []
+        for user in results:
+            all_users.append(cls(user))
+        return all_users
