@@ -15,12 +15,13 @@ def dashboard(id=1):
         "id" : session["account_logged_in"]
     }
     account_logged_in = User.get_one(data)
+    all_users= User.all()
     all_channels= Channel.get_all_channels()
     data = {
         'id' : id
     }
     this_channel = Channel.get_one(data)
-    return render_template("dashboard.html", user = account_logged_in, all_channels = all_channels, this_channel = this_channel)
+    return render_template("dashboard.html", user = account_logged_in, all_users=all_users, all_channels = all_channels, this_channel = this_channel)
 
 
 @app.route("/to_dashboard")
