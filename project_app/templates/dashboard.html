@@ -49,21 +49,36 @@
         <div class="col">
             <div class="row px-5 d-flex">
                 <div class="col-2" mt-2>
-                    <form action="/add_channel" method="POST" class="py-2 d-flex">
-                        <input type="text" name="name" placeholder="Add Channel" class="border border-2 rounded" style="width: 100%;">
-                        <input type="submit" value="+" class="btn btn-outline-primary btn-sm ms-2 rounded-circle pt-0 px-2 fw-bold">
-                    </form>
-                    {% for error in get_flashed_messages(category_filter=["name"]) %}
+                    <div class="row">
+                        <form action="/add_channel" method="POST" class="py-2 d-flex">
+                            <input type="text" name="name" placeholder="Add Channel" class="border border-2 rounded" style="width: 100%;">
+                            <input type="submit" value="+" class="btn btn-outline-primary btn-sm ms-2 rounded-circle pt-0 px-2 fw-bold">
+                        </form>
+                        {% for error in get_flashed_messages(category_filter=["name"]) %}
                         <p class="alert alert-danger">{{ error }}</p>
-                    {% endfor %}
-                    <div class="d-flex flex-column vstack pe-2">
-                        {% for channel in all_channels %}
+                        {% endfor %}
+                        <div class="d-flex flex-column vstack pe-2">
+                            {% for channel in all_channels %}
                             {% if channel.id == 1 %}
-                                <a href="/go_to_channel/{{ channel.id }}" class="text-decoration-none text-center link-primary py-1">{{ channel.name }}</a>
+                            <a href="/go_to_channel/{{ channel.id }}" class="text-decoration-none text-center link-primary py-1">{{ channel.name }}</a>
                             {% endif %}
                             {% if channel.id != 1 %}
-                                <a href="/go_to_channel/{{ channel.id }}" class="text-decoration-none text-center link-primary border-top border-1 py-1">{{ channel.name }}</a>
+                            <a href="/go_to_channel/{{ channel.id }}" class="text-decoration-none text-center link-primary border-top border-1 py-1">{{ channel.name }}</a>
                             {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <form class="form-floating" action="/uploads" enctype="multipart/form-data" method="POST">
+                            <input type="hidden" value="{{ id }}" name="channel_id">
+                            <textarea name = "description" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                            <label for="floatingTextarea">Write something....</label>
+                            <input type="text" name="name" placeholder="Name of Post">
+                            <input accept="image/*" type='file' id="myFile" name="file">
+                            <input type="submit" value="Submit">
+                        </form>
+                        {% for error in get_flashed_messages() %}
+                            <p>{{ error }}</p>
                         {% endfor %}
                     </div>
                 </div>

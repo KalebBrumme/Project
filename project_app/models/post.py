@@ -46,6 +46,12 @@ class Post:
 
 
     @classmethod
+    def save_post(cls, data):
+        query = "INSERT INTO posts (name, description, user_id, image_id, channel_id) VALUES (%(name)s, %(description)s, %(user_id)s, %(image_id)s, %(channel_id)s);"
+        return connectToMySQL('project').query_db(query, data)
+
+
+    @classmethod
     def get_all(cls, data):
         query= "SELECT * FROM posts WHERE channel_id = %(channel_id)s;"
         results = connectToMySQL("project").query_db(query, data)
