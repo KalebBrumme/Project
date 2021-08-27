@@ -99,9 +99,6 @@
                                         <label class="me-auto">{{ post.created_at.strftime('%Y-%m-%d') }} at {{ post.created_at.strftime('%H:%M %p') }}</label>
                                         <label class="me-4">{{ post.like_count }} likes</label>
                                         <a href="/like_post/{{ post.id }}" class="me-1 btn btn-outline-primary btn-sm">Like</a>
-                                        {% for reply in post.replies %}
-                                            <p>{{ reply.replies }}</p>
-                                        {% endfor %}
                                     </div>
                                 </div>
                                 <div class="row px-2 pt-3 pb-2 border border-1 mx-3">
@@ -110,8 +107,16 @@
                                 <div class="d-flex justify-content-end p-3 pe-4">
                                     <button onclick="myFunction()" class="btn btn-outline-primary btn-sm">Comment</button>
                                     {% if user.id == post.user_id%}
-                                        <a href="/delete/{{ post.id }}" class="btn btn-outline-primary btn-sm ms-3">Delete</a>
+                                    <a href="/delete/{{ post.id }}" class="btn btn-outline-primary btn-sm ms-3">Delete</a>
                                     {% endif%}
+                                </div>
+                                <div class="row bg-secondary border border-1 bg-opacity-10 d-flex flex-start p-3 mt-3 mx-2 text-start">
+                                    {% for reply in post.replies %}
+                                        <div class="border bg-white p-3 d-flex">
+                                            <p>{{ reply.replies }}</p>
+                                            <p class="ms-auto">{{ reply.created_at.strftime('%Y-%m-%d') }} at {{ reply.created_at.strftime('%H:%M %p') }}</p>
+                                        </div>
+                                    {% endfor %}
                                 </div>
                                 <div id="myDIV" class="bg-secondary bg-opacity-25 pt-1 pb-2">
                                     <div class="card p-3" style="height: 5rem;">
@@ -121,6 +126,7 @@
                                         </form>
                                     </div>
                                 </div>
+
                                 <br>
                             {% endfor %}
                         </div>
