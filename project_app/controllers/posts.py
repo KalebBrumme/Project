@@ -28,6 +28,7 @@ def allowed_file(filename):
 
 @app.route("/uploads/<id>", methods = ['POST'])
 def upload_file(id):
+    channel_id= id
     if "account_logged_in" not in session:
         return redirect("/log_out")
     if request.method == 'POST':
@@ -56,16 +57,13 @@ def upload_file(id):
                 "image_id" : image_id
             }
             Post.save_post(data)
-            return redirect('/dashboard')
-    return redirect('/dashboard')
+            return redirect(f"/go_to_channel/{ channel_id }")
+    return redirect(f"/go_to_channel/{ channel_id }")
 
 
 @app.route('/uploads/<filename>')
 def download_file(name):
     return send_from_directory(app.config['UPLOAD_PATH'], name)
-
-
-
 
 @app.route('/profile_page')
 def user_profile():
@@ -81,6 +79,7 @@ def delete(id):
         "id": id
     }
     Post.delete(data)
+
     return redirect("/dashboard")
 
 @app.route("/like_post/<id>")
@@ -97,3 +96,4 @@ def unlike_post(id):
         "id": id
     }
     Post.unlike_post(data)
+    return redirect("/dashboard")
