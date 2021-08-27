@@ -63,7 +63,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-8 bg-secondary bg-gradient d-flex justify-content-center flex-column">
+                <div class="col-8 bg-secondary border border-1 bg-opacity-50 bg-gradient d-flex justify-content-center flex-column">
                     <div style="width: 100%;">
                         <div class="row border border-1 bg-light p-3">
                             <form class="form-floating" action="/uploads/{{ this_channel.id }}" enctype="multipart/form-data" method="POST">
@@ -88,7 +88,7 @@
                                     <h3 class="me-4">{{ post.name }}</h3>
                                     <label class="me-auto">{{ post.created_at.strftime('%Y-%m-%d') }} at {{ post.created_at.strftime('%H:%M %p') }}</label>
                                     <label class="me-4">{{ post.like_count }} likes</label>
-                                    <a href="/like_post/{{ post.id }}" class="me-3 btn btn-outline-primary btn-sm">Like</a>
+                                    <a href="/like_post/{{ post.id }}" class="me-1 btn btn-outline-primary btn-sm">Like</a>
                                 </div>
                             </div>
                             <div class="row px-2 pt-3 pb-2 border border-1 mx-3">
@@ -103,6 +103,7 @@
                             {% endfor %}
                         </div>
                     </div>
+                    <br>
                 </div>
                 <div class="col-2 mt-4">
                     <div class="row d-flex flex-column mx-2 px-1">
