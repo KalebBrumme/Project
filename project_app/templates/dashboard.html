@@ -89,6 +89,9 @@
                                     <label class="me-auto">{{ post.created_at.strftime('%Y-%m-%d') }} at {{ post.created_at.strftime('%H:%M %p') }}</label>
                                     <label class="me-4">{{ post.like_count }} likes</label>
                                     <a href="/like_post/{{ post.id }}" class="me-1 btn btn-outline-primary btn-sm">Like</a>
+                                    {% for reply in post.replies %}
+                                        <p>{{ reply }}</p>
+                                    {% endfor %}
                                 </div>
                             </div>
                             <div class="row px-2 pt-3 pb-2 border border-1 mx-3">
