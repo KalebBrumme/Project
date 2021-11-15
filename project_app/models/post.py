@@ -20,7 +20,7 @@ class Post:
 
     @classmethod
     def get_all_users_posts(cls, data):
-        query = "SELECT * FROM posts WHERE id = %(id)s"
+        query = "SELECT * FROM posts WHERE user_id = %(id)s"
         results = connectToMySQL("project").query_db(query, data)
         all_user_posts = []
         for row_db in results:

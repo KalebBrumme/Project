@@ -20,33 +20,22 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
         <div class="container-fluid">
-            <span class="navbar-brand mb-0 h1">Welcome, {{ user.first_name }} {{ user.last_name }}</span>
+            <span class="navbar-brand mb-0 h1">Chatterbox</span>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                <a class="nav-link active" href="/dashboard">Dashboard</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link active" href="/profile_page">Profile</a>
-                </li>
-                <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Settings
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#">Contact Us</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="/log_out">Log Out</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/dashboard">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/profile_page">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/log_out">Log Out</a>
+                    </li>
                 </ul>
-                </li>
-            </ul>
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-light" type="submit">Search</button>
-            </form>
             </div>
         </div>
     </nav>
@@ -90,43 +79,57 @@
                         </div>
                     </div>
                     <div class="text-center overflow-auto" style="height: 35rem;">
-                        <div class="card mb-2" style="width: 99%;">
+                        <div class="card mb-2" style="width: 98%;">
                             {% for post in this_channel.posts %}
                                 <div class="d-flex bg-secondary bg-opacity-10 justify-content-center">
                                     <img src="{{ url_for('static', filename='upload_folder/images/') }}{{ post.image.link }}" alt="Image" class="img-fluid">
                                 </div>
                                 <div class="row p-4">
-                                    <div class="d-flex align-items-center">
-                                        <h3 class="me-4">{{ post.name }}</h3>
-                                        <label class="me-auto">{{ post.created_at.strftime('%Y-%m-%d') }} at {{ post.created_at.strftime('%H:%M %p') }}</label>
-                                        <label class="me-4">{{ post.like_count }} likes</label>
-                                        <a href="/like_post/{{ post.id }}" class="me-1 btn btn-outline-primary btn-sm">Like</a>
+                                    <div class="d-flex flex-column">
+                                        <div class="d-flex align-items-start pb-3">
+                                            {% for user in all_users %}
+                                                {% if user.id == post.user_id %}
+                                                    <label class="me-4">{{ user.first_name }} {{ user.last_name }}</label>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                        <div class="d-flex align-items-center flex-row">
+                                            <h3 class="me-4 ">{{ post.name }}</h3>
+                                            <label class="me-auto">{{ post.created_at.strftime('%Y-%m-%d') }} at {{ post.created_at.strftime('%H:%M %p') }}</label>
+                                            <label class="me-4">{{ post.like_count }} likes</label>
+                                            <a href="/like_post/{{ post.id }}" class="me-1 btn btn-outline-primary btn-sm">Like</a>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="row px-2 pt-3 pb-2 border border-1 mx-3">
+                                <div class="row px-2 pt-3 pb-1 border border-1 mx-3">
                                     <p class="text-start">{{ post.description }}</p>
                                 </div>
-                                <div class="d-flex justify-content-end p-3 pe-4">
-                                    <button onclick="myFunction()" class="btn btn-outline-primary btn-sm">Comment</button>
+                                <div class="d-flex justify-content-between p-3 pe-4">
+                                    <form action="/add_reply/{{ post.id }}" method="POST" class="d-flex align-self-start flex-row me-1" style="width: 100%;">
+                                        <input type="text" name="reply" class="me-3 border border-2 d-flex" placeholder="Comment on this post" style="width: 100%;">
+                                        <input type="submit" name="reply" value="Reply" class="me-auto btn btn-outline-primary btn-sm">
+                                    </form>
                                     {% if user.id == post.user_id%}
                                     <a href="/delete/{{ post.id }}" class="btn btn-outline-primary btn-sm ms-3">Delete</a>
                                     {% endif%}
                                 </div>
-                                <div class="row bg-secondary border border-1 bg-opacity-10 d-flex flex-start p-3 mt-3 text-start">
+                                <div class="d-flex row bg-secondary border border-1 bg-opacity-10 flex-center p-4 text-start me-0 ms-0">
                                     {% for reply in post.replies %}
-                                        <div class="border bg-white p-3 d-flex">
-                                            <p>{{ reply.replies }}</p>
-                                            <p class="ms-auto">{{ reply.created_at.strftime('%Y-%m-%d') }} at {{ reply.created_at.strftime('%H:%M %p') }}</p>
+                                        <div class="border bg-white p-3 d-flex flex-column mb-2">
+                                            <div class="d-flex align-items-start flex-row justify-content-start pt-1 pb-3">
+                                                {% for user in all_users %}
+                                                    {% if user.id == reply.user_id %}
+                                                        <label class="ms-3">{{ user.first_name }} {{ user.last_name }}</label>
+                                                    {% endif %}
+                                                {% endfor %}
+                                                <label class="ms-4">{{ reply.created_at.strftime('%Y-%m-%d') }} at {{ reply.created_at.strftime('%H:%M %p') }}</label>
+                                            </div>
+                                            <div class="d-flex row px-2 pt-3 pb-1 border border-1 mx-1 mb-2">
+                                                <p>{{ reply.replies }}</p>
+                                            </div>
+                                            
                                         </div>
                                     {% endfor %}
-                                </div>
-                                <div id="myDIV" class="bg-secondary bg-opacity-25 pt-1 pb-2">
-                                    <div class="card p-3" style="height: 5rem;">
-                                        <form action="/add_reply/{{ post.id }}" method="POST" class="d-flex align-self-center">
-                                            <input type="text" name="reply" class="me-3">
-                                            <input type="submit" name="reply" value="Reply" class="me-auto btn btn-outline-primary btn-sm">
-                                        </form>
-                                    </div>
                                 </div>
                             {% endfor %}
                         </div>
@@ -150,25 +153,16 @@
 
 
 
-
-
-
-
-
-
-
-
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
     <script>
         function myFunction() {
-        var x = document.getElementById("myDIV");
-        if (x.style.display === "block") {
-            x.style.display = "none";
-        } else {
-            x.style.display = "block";
+            var x = document.getElementById("myDIV");
+            if (x.style.display === "block") {
+                x.style.display = "none";
+            } else {
+                x.style.display = "block";
+            }
         }
-        }
-        </script>
+    </script>
 </body>
 </html>
