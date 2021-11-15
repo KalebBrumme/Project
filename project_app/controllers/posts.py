@@ -64,8 +64,10 @@ def user_profile():
     user_data = {
         "id": session['account_logged_in']
     }
+    account_logged_in = User.get_one(user_data)
+    all_users= User.all()
     all_user_posts = Post.get_all_users_posts(user_data)
-    return render_template('profile_page.html', all_user_posts = all_user_posts)
+    return render_template('profile_page.html', user= account_logged_in, all_user_posts = all_user_posts, all_users= all_users)
 
 
 @app.route('/user_settings/<int:id>')
@@ -81,7 +83,7 @@ def delete(id):
     }
     Post.delete(data)
 
-    return redirect("/dashboard")
+    return redirect(request.referrer)
 
 @app.route("/like_post/<id>")
 def like_post(id):
@@ -89,7 +91,7 @@ def like_post(id):
         "id": id
     }
     Post.like_post(data)
-    return redirect("/dashboard")
+    return redirect(request.referrer)
 
 @app.route('/add_reply/<int:id>', methods=['POST'])
 def add_reply(id):
@@ -99,4 +101,4 @@ def add_reply(id):
         "post_id": id
     }
     Reply.make_reply(data)
-    return redirect('/dashboard')
+    return redirect(request.referrer)

@@ -45,7 +45,7 @@ class Channel:
     @classmethod
     def get_one(cls, data):
         query = "SELECT * FROM channels WHERE id = %(id)s;"
-        results = connectToMySQL('project').query_db(query, data)
+        results = connectToMySQL("project").query_db(query, data)
         return cls(results[0])
 
 
