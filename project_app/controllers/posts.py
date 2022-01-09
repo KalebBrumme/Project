@@ -50,11 +50,6 @@ def upload_file(id):
             return redirect(f"/go_to_channel/{ channel_id }")
     return redirect(f"/go_to_channel/{ channel_id }")
 
-
-@app.route('/uploads/<filename>')
-def download_file(name):
-    return send_from_directory(app.config['UPLOAD_PATH'], name)
-
 @app.route('/profile_page')
 def user_profile():
     user_data = {
