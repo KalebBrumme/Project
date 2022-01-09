@@ -26,15 +26,11 @@ def upload_file(id):
     if "account_logged_in" not in session:
         return redirect("/log_out")
     if request.method == 'POST':
-        print(request.files)
         if 'file' not in request.files:
-            flash('No file part')
-            return redirect('/upload')
+            return redirect(f"/go_to_channel/{ channel_id }")
         file = request.files['file']
         if file.filename == '':
-            flash('No file selected')
-            return redirect('/upload')
-        print(file)
+            return redirect(f"/go_to_channel/{ channel_id }")
         if file and allowed_file(file.filename):
             filename = generate_file_name()
             data = {
