@@ -1,16 +1,2 @@
-# Project
+A social media styled application designed for individuals to upload posts and images to multiple channels. Gained experience communicating between front-end and back-end developers and utilized GitHub to contribute code in a team environment. Constructed sitemap to plan app functionalities and utilized Bootstrap CSS library to design wireframe. Composed a login and registration page with Python and Flask utilizing MySQL database. Exposed to dynamic table relationships in MySQL database and implemented the upload of images using session and MySQL.
 
-
-Kaleb - Different Pages:
-Login, Dashboard, Contact Us
-
-
-Sarah - 
-Login: 
-Login and registration
-Dashboard layout: 
-Everyone's name in server, chat
-Navigation bar layout: 
-Blog name, contact us, user account drop bar: settings and user account
-
-For different pages, could do a user account page where all users posts r displayed
