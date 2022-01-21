@@ -14,3 +14,4 @@ Navigation bar layout:
 Blog name, contact us, user account drop bar: settings and user account
 
 For different pages, could do a user account page where all users posts r displayed
+# Chatterbox
